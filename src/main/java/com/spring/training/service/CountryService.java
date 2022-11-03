@@ -36,7 +36,7 @@ public class CountryService {
     public Country createCountry(Country country) {
         repository.findByNameIgnoreCase(country.getName())
                 .ifPresent(entity -> {
-                    throw new SoapException("entity not found with name : "+country.getName());
+                    throw new SoapException("duplicated entity with name : "+country.getName());
                 });
         return mapper.toCountry(repository.save(mapper.fromCountry(country)));
     }
@@ -47,8 +47,7 @@ public class CountryService {
         return repository.findByNameIgnoreCase(name)
                 .map(entity -> {
                     country.setName(name);
-                    return mapper.toCountry(
-                            repository.save(mapper.fromCountry(country)));
+                    return mapper.toCountry(repository.save(mapper.fromCountry(country)));
                 }).orElseThrow(() -> new SoapException("entity not found with name : "+name));
     }
 
