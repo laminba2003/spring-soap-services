@@ -29,7 +29,7 @@ public class PersonService {
     @Transactional(readOnly = true)
     public Person getPerson(Long id) {
         return personMapper.toPerson(personRepository.findById(id).orElseThrow(() ->
-                new SoapException("entity not found with id : "+id)));
+                new SoapException("person not found with id : " + id)));
     }
 
     @Transactional
@@ -45,7 +45,7 @@ public class PersonService {
                 .map(entity -> {
                     person.setId(id);
                     return personMapper.toPerson(personRepository.save(personMapper.fromPerson(person)));
-                }).orElseThrow(() -> new SoapException("entity not found with id : "+id));
+                }).orElseThrow(() -> new SoapException("person not found with id : " + id));
     }
 
     @Transactional
@@ -53,7 +53,7 @@ public class PersonService {
         try {
             personRepository.deleteById(id);
         } catch (Exception e) {
-            throw new SoapException("cannot delete entity with id : "+id);
+            throw new SoapException("cannot delete person with id : " + id);
         }
     }
 

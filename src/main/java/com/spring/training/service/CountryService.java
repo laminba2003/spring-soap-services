@@ -29,14 +29,14 @@ public class CountryService {
     @Transactional(readOnly = true)
     public Country getCountry(String name) {
         return mapper.toCountry(repository.findByNameIgnoreCase(name).orElseThrow(() ->
-                new SoapException("entity not found with name : "+name)));
+                new SoapException("country not found with name : " + name)));
     }
 
     @Transactional
     public Country createCountry(Country country) {
         repository.findByNameIgnoreCase(country.getName())
                 .ifPresent(entity -> {
-                    throw new SoapException("duplicated entity with name : "+country.getName());
+                    throw new SoapException("duplicated country with name : " + country.getName());
                 });
         return mapper.toCountry(repository.save(mapper.fromCountry(country)));
     }
@@ -48,7 +48,7 @@ public class CountryService {
                 .map(entity -> {
                     country.setName(name);
                     return mapper.toCountry(repository.save(mapper.fromCountry(country)));
-                }).orElseThrow(() -> new SoapException("entity not found with name : "+name));
+                }).orElseThrow(() -> new SoapException("country not found with name : " + name));
     }
 
     @Transactional
@@ -56,7 +56,7 @@ public class CountryService {
         try {
             repository.deleteById(name);
         } catch (Exception e) {
-            throw new SoapException("entity not found with name : "+name);
+            throw new SoapException("cannot delete country with name : " + name);
         }
     }
 
