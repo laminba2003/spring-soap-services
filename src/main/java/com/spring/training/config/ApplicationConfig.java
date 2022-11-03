@@ -54,7 +54,6 @@ public class ApplicationConfig extends WsConfigurerAdapter {
         return definition;
     }
 
-
     @Bean(name = "persons")
     public DefaultWsdl11Definition personsWsdl11Definition(XsdSchema personsSchema) {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
