@@ -25,7 +25,6 @@ public class CountryEndpoint {
         return response;
     }
 
-
     @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "getCountryRequest")
     @ResponsePayload
     public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
