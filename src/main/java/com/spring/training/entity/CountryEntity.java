@@ -1,10 +1,9 @@
 package com.spring.training.entity;
 
-import io.spring.guides.gs_producing_web_service.Country;
+import io.spring.guides.gs_producing_web_service.Currency;
 import lombok.Data;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+
+import javax.persistence.*;
 
 @Entity
 @Data
@@ -12,17 +11,10 @@ import javax.persistence.Table;
 public class CountryEntity {
 
     @Id
-    private Long id;
-    private String name;
-    private String capital;
-    private int population;
-
-    public Country toCountry() {
-        Country country = new Country();
-        country.setName(name);
-        country.setCapital(capital);
-        country.setPopulation(population);
-        return country;
-    }
+    String name;
+    String capital;
+    int population;
+    @Enumerated(EnumType.STRING)
+    Currency currency;
 
 }

@@ -2,10 +2,12 @@ package com.spring.training.repository;
 
 import com.spring.training.entity.CountryEntity;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
-public interface CountryRepository extends CrudRepository<CountryEntity, Long> {
+@Repository
+public interface CountryRepository extends CrudRepository<CountryEntity, String> {
 
-    public Optional<CountryEntity> findByNameIgnoreCase(String name);
+    Optional<CountryEntity> findByNameIgnoreCase(String name);
 
 }
