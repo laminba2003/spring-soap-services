@@ -31,13 +31,10 @@ public class ApplicationConfig extends WsConfigurerAdapter {
         exceptionResolver.setDefaultFault(faultDefinition);
         Properties errorMappings = new Properties();
         errorMappings.setProperty(Exception.class.getName(), SoapFaultDefinition.SERVER.toString());
-        //errorMappings.setProperty(ServiceFaultException.class.getName(), SoapFaultDefinition.SERVER.toString());
         exceptionResolver.setExceptionMappings(errorMappings);
         exceptionResolver.setOrder(1);
         return exceptionResolver;
     }
-
-
 
     @Bean
     public ServletRegistrationBean<MessageDispatcherServlet> messageDispatcherServlet(ApplicationContext applicationContext) {
@@ -49,23 +46,23 @@ public class ApplicationConfig extends WsConfigurerAdapter {
 
     @Bean(name = "countries")
     public DefaultWsdl11Definition countriesWsdl11Definition(XsdSchema countriesSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("CountriesPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace(NAMESPACE_URI);
-        wsdl11Definition.setSchema(countriesSchema);
-        return wsdl11Definition;
+        DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+        definition.setPortTypeName("CountriesPort");
+        definition.setLocationUri("/ws");
+        definition.setTargetNamespace(NAMESPACE_URI);
+        definition.setSchema(countriesSchema);
+        return definition;
     }
 
 
     @Bean(name = "persons")
     public DefaultWsdl11Definition personsWsdl11Definition(XsdSchema personsSchema) {
-        DefaultWsdl11Definition wsdl11Definition = new DefaultWsdl11Definition();
-        wsdl11Definition.setPortTypeName("PersonsPort");
-        wsdl11Definition.setLocationUri("/ws");
-        wsdl11Definition.setTargetNamespace(NAMESPACE_URI);
-        wsdl11Definition.setSchema(personsSchema);
-        return wsdl11Definition;
+        DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
+        definition.setPortTypeName("PersonsPort");
+        definition.setLocationUri("/ws");
+        definition.setTargetNamespace(NAMESPACE_URI);
+        definition.setSchema(personsSchema);
+        return definition;
     }
 
     @Bean
