@@ -15,7 +15,7 @@ import static com.spring.training.config.ApplicationConfig.NAMESPACE_URI;
 @AllArgsConstructor
 public class CountryEndpoint {
 
-    CountryService service;
+    final CountryService service;
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountriesRequest")
     @ResponsePayload

@@ -13,7 +13,7 @@ import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 @AllArgsConstructor
 public class PersonEndpoint {
 
-    PersonService service;
+    final PersonService service;
 
     @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "getPersonsRequest")
     @ResponsePayload
