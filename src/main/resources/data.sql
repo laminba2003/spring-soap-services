@@ -5,3 +5,6 @@ insert into countries(name, capital, population, currency) values('Mali', 'Bamak
 
 insert into persons(id, first_name, last_name) values(1,'Mamadou Lamine', 'Ba');
 insert into persons(id, first_name, last_name) values(2,'Moussa', 'Fall');
+
+insert into users(id, first_name, last_name, user_name, password) values(1,'John', 'Doe', 'john', '$2y$10$ixpcaW8QQQp3CKjAbrDRX.W1BUQWR3pglZ6jHTFMLLQ4SXDO4ZKhy');
+insert into users(id, first_name, last_name, user_name, password) values(2,'Jack', 'Mayer', 'admin', '$2y$10$ixpcaW8QQQp3CKjAbrDRX.W1BUQWR3pglZ6jHTFMLLQ4SXDO4ZKhy');
