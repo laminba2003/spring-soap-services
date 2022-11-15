@@ -3,7 +3,7 @@ package com.spring.training.service;
 import com.spring.training.exception.SoapException;
 import com.spring.training.mapping.PersonMapper;
 import com.spring.training.repository.PersonRepository;
-import io.spring.guides.gs_producing_web_service.Person;
+import com.spring.training.model.Person;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

@@ -1,6 +1,6 @@
 package com.spring.training.entity;
 
-import io.spring.guides.gs_producing_web_service.Currency;
+import com.spring.training.model.Currency;
 import lombok.Data;
 
 import javax.persistence.*;

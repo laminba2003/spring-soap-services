@@ -1,5 +1,5 @@
-<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.io/guides/gs-producing-web-service"
-           targetNamespace="http://spring.io/guides/gs-producing-web-service" elementFormDefault="qualified">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://spring.com/training/model"
+           targetNamespace="http://spring.com/training/model" elementFormDefault="qualified">
 
     <xs:element name="getPersonsRequest">
         <xs:complexType>
@@ -13,7 +13,6 @@
             </xs:sequence>
         </xs:complexType>
     </xs:element>
-
 
     <xs:element name="getPersonRequest">
         <xs:complexType>
@@ -75,7 +74,6 @@
         <xs:complexType>
         </xs:complexType>
     </xs:element>
-
 
     <xs:complexType name="Person">
         <xs:sequence>

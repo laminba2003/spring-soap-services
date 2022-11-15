@@ -6,7 +6,6 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.io.ClassPathResource;
-import org.springframework.ws.config.annotation.EnableWs;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.soap.server.endpoint.SoapFaultDefinition;
 import org.springframework.ws.soap.server.endpoint.SoapFaultMappingExceptionResolver;
@@ -17,11 +16,10 @@ import org.springframework.xml.xsd.XsdSchema;
 
 import java.util.Properties;
 
-@EnableWs
 @Configuration
 public class ApplicationConfig extends WsConfigurerAdapter {
 
-    public static final String NAMESPACE_URI = "http://spring.io/guides/gs-producing-web-service";
+    public static final String NAMESPACE_URI = "http://spring.com/training/model";
 
     @Bean
     public SoapFaultMappingExceptionResolver exceptionResolver(){

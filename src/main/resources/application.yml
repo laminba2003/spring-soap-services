@@ -1,8 +1,7 @@
 logging:
     level:
-        org:
-            springframework:
-                ws: INFO
+        org.springframework.ws: INFO
+        org.springframework.ws.server.endpoint.interceptor: DEBUG
 spring:
     datasource:
         driverClassName: org.h2.Driver

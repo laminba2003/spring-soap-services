@@ -2,7 +2,7 @@ package com.spring.training.endpoint;
 
 import com.spring.training.config.ApplicationConfig;
 import com.spring.training.service.CountryService;
-import io.spring.guides.gs_producing_web_service.*;
+import com.spring.training.model.*;
 import lombok.AllArgsConstructor;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
