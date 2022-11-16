@@ -1,7 +1,8 @@
 logging:
     level:
-        org.springframework.ws: INFO
-        org.springframework.ws.server.endpoint.interceptor: DEBUG
+        org.springframework.ws: TRACE
+        org.springframework.ws.server.endpoint.interceptor: TRACE
+        org.springframework.ws.soap.security.xwss: TRACE
 spring:
     datasource:
         driverClassName: org.h2.Driver
