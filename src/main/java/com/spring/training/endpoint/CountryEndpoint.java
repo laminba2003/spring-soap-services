@@ -50,11 +50,8 @@ public class CountryEndpoint {
     }
 
     @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "deleteCountryRequest")
-    @ResponsePayload
-    public DeleteCountryResponse deleteCountry(@RequestPayload DeleteCountryRequest request) {
-        DeleteCountryResponse response = new DeleteCountryResponse();
+    public void deleteCountry(@RequestPayload DeleteCountryRequest request) {
         service.deleteCountry(request.getName());
-        return response;
     }
 
 

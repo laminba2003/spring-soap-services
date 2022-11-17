@@ -70,11 +70,6 @@
         </xs:complexType>
     </xs:element>
 
-    <xs:element name="deletePersonResponse">
-        <xs:complexType>
-        </xs:complexType>
-    </xs:element>
-
     <xs:complexType name="Person">
         <xs:sequence>
             <xs:element name="id" type="xs:long" nillable="true"/>

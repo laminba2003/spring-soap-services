@@ -5,38 +5,32 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.ws.config.annotation.WsConfigurerAdapter;
-import org.springframework.ws.server.EndpointInterceptor;
-import org.springframework.ws.server.endpoint.interceptor.PayloadLoggingInterceptor;
 import org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor;
 import org.springframework.ws.soap.security.xwss.callback.SpringPlainTextPasswordValidationCallbackHandler;
 
-import java.util.List;
+import java.util.Map;
 
 @Configuration
-@Profile("springPlainTextPassword")
+@Profile("springPassword")
 @AllArgsConstructor
-public class SpringPlainTextPasswordSecurityConfig extends WsConfigurerAdapter {
+public class SpringPlainTextPasswordSecurityConfig extends AbstractSecurityConfig {
 
     final UserAuthenticationService authenticationService;
 
     @Bean
-    public XwsSecurityInterceptor securityInterceptor() {
+    public XwsSecurityInterceptor securityInterceptor(ServerConfig serverConfig) {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
-        interceptor.setCallbackHandler(callbackHandler());
-        interceptor.setPolicyConfiguration(new ClassPathResource("passwordSecurityPolicy.xml"));
-        return interceptor;
-    }
-
-    @Bean
-    public SpringPlainTextPasswordValidationCallbackHandler callbackHandler() {
+        Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("password");
+        DefaultResourceLoader loader = new DefaultResourceLoader();
+        interceptor.setPolicyConfiguration(loader.getResource(securityConfig.get("policy")));
         SpringPlainTextPasswordValidationCallbackHandler handler = new SpringPlainTextPasswordValidationCallbackHandler();
         handler.setAuthenticationManager(authenticationManager());
-        return handler;
+        interceptor.setCallbackHandler(handler);
+        return interceptor;
     }
 
     @Bean
@@ -45,17 +39,6 @@ public class SpringPlainTextPasswordSecurityConfig extends WsConfigurerAdapter {
         provider.setUserDetailsService(authenticationService);
         provider.setPasswordEncoder(new BCryptPasswordEncoder());
         return new ProviderManager(provider);
-    }
-
-    @Bean
-    public PayloadLoggingInterceptor payloadLoggingInterceptor() {
-        return new PayloadLoggingInterceptor();
-    }
-
-    @Override
-    public void addInterceptors(List<EndpointInterceptor> interceptors) {
-        interceptors.add(payloadLoggingInterceptor());
-        interceptors.add(securityInterceptor());
     }
 
 }

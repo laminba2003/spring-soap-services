@@ -10,14 +10,10 @@ public class UserEntity {
 
     @Id
     Long id;
-
     String firstName;
-
     String lastName;
-
     @Column(nullable = false, unique = true)
     String userName;
-
     String password;
 
 }

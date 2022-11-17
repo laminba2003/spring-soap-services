@@ -1,18 +1,27 @@
-logging:
-    level:
-        org.springframework.ws: TRACE
-        org.springframework.ws.server.endpoint.interceptor: TRACE
-        org.springframework.ws.soap.security.xwss: TRACE
 spring:
-    datasource:
-        driverClassName: org.h2.Driver
-        password: password
-        url: jdbc:h2:mem:testdb
-        username: sa
-    jpa:
-        database-platform: org.hibernate.dialect.H2Dialect
-        defer-datasource-initialization: true
-        generate-ddl: true
-        hibernate:
-            ddl-auto: create
-        show-sql: true
+  datasource:
+    driverClassName: org.h2.Driver
+    password: password
+    url: jdbc:h2:mem:testdb
+    username: sa
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    defer-datasource-initialization: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+ws:
+  security:
+    password:
+      policy: classpath:passwordSecurityPolicy.xml
+      users:
+        admin: pwd123
+    certificate:
+      policy: classpath:certificateSecurityPolicy.xml
+      trustStore: classpath:trustStore.jks
+      password: changeit
+      alias: thinktech
+logging:
+  level:
+    org.springframework.ws: TRACE

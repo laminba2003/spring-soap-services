@@ -48,11 +48,8 @@ public class PersonEndpoint {
     }
 
     @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "deletePersonRequest")
-    @ResponsePayload
-    public DeletePersonResponse deletePerson(@RequestPayload DeletePersonRequest request) {
-        DeletePersonResponse response = new DeletePersonResponse();
+    public void deletePerson(@RequestPayload DeletePersonRequest request) {
         service.deletePerson(request.getId());
-        return response;
     }
 
 }
