@@ -1,4 +1,4 @@
 <xwss:SecurityConfiguration xmlns:xwss="http://java.sun.com/xml/ns/xwss/config" dumpMessages="true">
-    <xwss:RequireSignature/>
-    <xwss:Sign/>
+    <xwss:RequireSignature requireTimestamp="false"/>
+    <xwss:Sign includeTimestamp="false"/>
 </xwss:SecurityConfiguration>

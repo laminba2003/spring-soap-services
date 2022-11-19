@@ -4,6 +4,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.core.io.DefaultResourceLoader;
+import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.soap.security.support.KeyStoreFactoryBean;
 import org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor;
 import org.springframework.ws.soap.security.xwss.callback.KeyStoreCallbackHandler;
@@ -15,7 +16,8 @@ import java.util.Map;
 public class CertificateSecurityConfig extends AbstractSecurityConfig {
 
     @Bean
-    public XwsSecurityInterceptor securityInterceptor(ServerConfig serverConfig) {
+    @Override
+    public EndpointInterceptor securityInterceptor(ServerConfig serverConfig) {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
         Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("certificate");
         DefaultResourceLoader loader = new DefaultResourceLoader();
@@ -36,7 +38,7 @@ public class CertificateSecurityConfig extends AbstractSecurityConfig {
         DefaultResourceLoader loader = new DefaultResourceLoader();
         KeyStoreFactoryBean keyStoreFactoryBean = new KeyStoreFactoryBean();
         keyStoreFactoryBean.setType("JKS");
-        keyStoreFactoryBean.setLocation(loader.getResource(securityConfig.get("trustStore")));
+        keyStoreFactoryBean.setLocation(loader.getResource(securityConfig.get("keyStore")));
         keyStoreFactoryBean.setPassword(securityConfig.get("password"));
         return keyStoreFactoryBean;
     }

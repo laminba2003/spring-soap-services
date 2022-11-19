@@ -19,7 +19,7 @@ ws:
         admin: pwd123
     certificate:
       policy: classpath:certificateSecurityPolicy.xml
-      trustStore: classpath:trustStore.jks
+      keyStore: classpath:keyStore.jks
       password: changeit
       alias: thinktech
 logging:

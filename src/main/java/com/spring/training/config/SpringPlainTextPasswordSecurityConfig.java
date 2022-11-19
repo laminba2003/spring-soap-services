@@ -9,6 +9,7 @@ import org.springframework.core.io.DefaultResourceLoader;
 import org.springframework.security.authentication.ProviderManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.ws.server.EndpointInterceptor;
 import org.springframework.ws.soap.security.xwss.XwsSecurityInterceptor;
 import org.springframework.ws.soap.security.xwss.callback.SpringPlainTextPasswordValidationCallbackHandler;
 
@@ -22,7 +23,8 @@ public class SpringPlainTextPasswordSecurityConfig extends AbstractSecurityConfi
     final UserAuthenticationService authenticationService;
 
     @Bean
-    public XwsSecurityInterceptor securityInterceptor(ServerConfig serverConfig) {
+    @Override
+    public EndpointInterceptor securityInterceptor(ServerConfig serverConfig) {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
         Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("password");
         DefaultResourceLoader loader = new DefaultResourceLoader();
