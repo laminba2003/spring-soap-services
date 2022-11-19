@@ -10,7 +10,7 @@ import java.util.List;
 
 public abstract class AbstractSecurityConfig extends WsConfigurerAdapter {
 
-    public abstract EndpointInterceptor securityInterceptor(ServerConfig serverConfig);
+    public abstract EndpointInterceptor securityInterceptor(ServerConfig serverConfig) ;
 
     @Bean
     public PayloadLoggingInterceptor payloadLoggingInterceptor() {

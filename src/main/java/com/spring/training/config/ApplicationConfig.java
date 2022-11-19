@@ -1,5 +1,6 @@
 package com.spring.training.config;
 
+import com.spring.training.endpoint.SoapActions;
 import com.spring.training.exception.SoapExceptionResolver;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
@@ -48,6 +49,7 @@ public class ApplicationConfig {
         definition.setLocationUri("/ws");
         definition.setTargetNamespace(NAMESPACE_URI);
         definition.setSchema(countriesSchema);
+        definition.setSoapActions(SoapActions.getCountrySoapActions());
         return definition;
     }
 
@@ -58,6 +60,7 @@ public class ApplicationConfig {
         definition.setLocationUri("/ws");
         definition.setTargetNamespace(NAMESPACE_URI);
         definition.setSchema(personsSchema);
+        definition.setSoapActions(SoapActions.getPersonSoapActions());
         return definition;
     }
 
