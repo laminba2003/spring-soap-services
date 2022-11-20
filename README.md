@@ -135,3 +135,32 @@ mvn spring-boot:run -Dspring-boot.run.profiles=certificate
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=encryption
 ```
+
+## Generate your own certificate
+
+You can generate your own certificate with the *openssl* tool following these steps:
+
+### Create self-signed certificate
+
+```
+openssl genrsa -out server.key 2048
+openssl req -new -out server.csr -key server.key
+openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
+```
+
+### Convert the x.509 cert and key to a pkcs12 file
+
+```
+openssl pkcs12 -export -in server.crt -inkey server.key \
+               -out server.p12 -name [some-alias] \
+               -CAfile ca.crt -caname root
+```
+
+### Convert the pkcs12 file to a Java keystore
+
+```
+keytool -importkeystore \
+        -deststorepass [changeit] -destkeypass [changeit] -destkeystore server.keystore \
+        -srckeystore server.p12 -srcstoretype PKCS12 -srcstorepass some-password \
+        -alias [some-alias]
+```
