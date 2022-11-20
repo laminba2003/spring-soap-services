@@ -78,7 +78,7 @@ The digital signature of a message is a piece of information based on both the d
 **Encryption and Decryption**:  
 
 Encryption is the process of transforming data into a form that is impossible to read without the appropriate key. 
-It is mainly used to keep information hidden from anyone for whom it is not intended. Decryption is the reverse of encryption; it is the process of transforming of encrypted data back into an readable form. 
+It is mainly used to keep information hidden from anyone for whom it is not intended. Decryption is the reverse of encryption, it is the process of transforming of encrypted data back into an readable form. 
 
 Two implementations of WS-Security, WSS4J and XWSS, are supported and the following authentication methods are used: 
 
