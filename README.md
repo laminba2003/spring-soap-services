@@ -148,7 +148,7 @@ openssl req -new -out server.csr -key server.key
 openssl x509 -req -days 365 -in server.csr -signkey server.key -out server.crt
 ```
 
-### Convert the x.509 cert and key to a pkcs12 file
+### Convert the x.509 certificate and key to a pkcs12 file
 
 ```
 openssl pkcs12 -export -in server.crt -inkey server.key \
