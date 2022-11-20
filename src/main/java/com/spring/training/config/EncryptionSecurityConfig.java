@@ -10,7 +10,6 @@ import org.springframework.ws.soap.security.wss4j2.Wss4jSecurityInterceptor;
 import org.springframework.ws.soap.security.wss4j2.callback.KeyStoreCallbackHandler;
 import org.springframework.ws.soap.security.wss4j2.support.CryptoFactoryBean;
 
-import java.io.IOException;
 import java.util.Map;
 
 @Configuration
@@ -26,32 +25,33 @@ public class EncryptionSecurityConfig extends AbstractSecurityConfig {
     @SneakyThrows
     public EndpointInterceptor securityInterceptor() {
         Wss4jSecurityInterceptor interceptor = new Wss4jSecurityInterceptor();
-        Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("certificate");
+        Map<String, String> certificate = serverConfig.getCertificate();
         interceptor.setSecurementActions("Signature Encrypt");
         interceptor.setValidationActions("Signature Encrypt");
-        interceptor.setSecurementUsername(securityConfig.get("alias"));
-        interceptor.setSecurementPassword(securityConfig.get("password"));
+        interceptor.setSecurementUsername(certificate.get("alias"));
+        interceptor.setSecurementPassword(certificate.get("password"));
         interceptor.setSecurementSignatureKeyIdentifier("DirectReference");
-        interceptor.setSecurementEncryptionUser(securityConfig.get("alias"));
+        interceptor.setSecurementEncryptionUser(certificate.get("alias"));
         CryptoFactoryBean cryptoFactoryBean = cryptoFactoryBean();
         interceptor.setSecurementSignatureCrypto(cryptoFactoryBean.getObject());
         interceptor.setValidationSignatureCrypto(cryptoFactoryBean.getObject());
         interceptor.setSecurementEncryptionCrypto(cryptoFactoryBean.getObject());
         interceptor.setValidationDecryptionCrypto(cryptoFactoryBean.getObject());
         KeyStoreCallbackHandler keyStoreCallbackHandler = new KeyStoreCallbackHandler();
-        keyStoreCallbackHandler.setPrivateKeyPassword(securityConfig.get("password"));
+        keyStoreCallbackHandler.setPrivateKeyPassword(certificate.get("password"));
         interceptor.setValidationCallbackHandler(keyStoreCallbackHandler);
         return interceptor;
     }
 
     @Bean
-    public CryptoFactoryBean cryptoFactoryBean() throws IOException {
+    @SneakyThrows
+    public CryptoFactoryBean cryptoFactoryBean() {
         CryptoFactoryBean cryptoFactoryBean = new CryptoFactoryBean();
-        Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("certificate");
+        Map<String, String> certificate = serverConfig.getCertificate();
         DefaultResourceLoader loader = new DefaultResourceLoader();
-        cryptoFactoryBean.setKeyStorePassword(securityConfig.get("password"));
-        cryptoFactoryBean.setKeyStoreLocation(loader.getResource(securityConfig.get("keyStore")));
-        cryptoFactoryBean.setDefaultX509Alias(securityConfig.get("alias"));
+        cryptoFactoryBean.setKeyStorePassword(certificate.get("password"));
+        cryptoFactoryBean.setKeyStoreLocation(loader.getResource(certificate.get("keyStore")));
+        cryptoFactoryBean.setDefaultX509Alias(certificate.get("alias"));
         return cryptoFactoryBean;
     }
 

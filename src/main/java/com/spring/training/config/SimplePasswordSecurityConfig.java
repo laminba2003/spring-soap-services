@@ -22,12 +22,11 @@ public class SimplePasswordSecurityConfig extends AbstractSecurityConfig {
     @Override
     public EndpointInterceptor securityInterceptor() {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
-        Map<String, Object> securityConfig = (Map<String, Object>) serverConfig.getSecurity().get("password");
+        Map<String, String> password = serverConfig.getPassword();
         DefaultResourceLoader loader = new DefaultResourceLoader();
-        interceptor.setPolicyConfiguration(loader.getResource(securityConfig.get("policy").toString()));
+        interceptor.setPolicyConfiguration(loader.getResource(password.get("policy")));
         SimplePasswordValidationCallbackHandler handler = new SimplePasswordValidationCallbackHandler();
-        Map<String, String> users = (Map<String, String>) securityConfig.get("users");
-        handler.setUsersMap(users);
+        handler.setUsersMap(serverConfig.getUsers());
         interceptor.setCallbackHandler(handler);
         return interceptor;
     }

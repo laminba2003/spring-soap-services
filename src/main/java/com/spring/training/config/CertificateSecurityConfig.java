@@ -23,27 +23,27 @@ public class CertificateSecurityConfig extends AbstractSecurityConfig {
     @Override
     public EndpointInterceptor securityInterceptor() {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
-        Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("certificate");
+        Map<String, String> certificate = serverConfig.getCertificate();
         DefaultResourceLoader loader = new DefaultResourceLoader();
-        interceptor.setPolicyConfiguration(loader.getResource(securityConfig.get("policy")));
+        interceptor.setPolicyConfiguration(loader.getResource(certificate.get("policy")));
         KeyStoreCallbackHandler handler = new KeyStoreCallbackHandler();
-        handler.setDefaultAlias(securityConfig.get("alias"));
+        handler.setDefaultAlias(certificate.get("alias"));
         KeyStoreFactoryBean keyStoreFactoryBean = keyStoreFactoryBean(serverConfig);
         handler.setTrustStore(keyStoreFactoryBean.getObject());
         handler.setKeyStore(keyStoreFactoryBean.getObject());
-        handler.setPrivateKeyPassword(securityConfig.get("password"));
+        handler.setPrivateKeyPassword(certificate.get("password"));
         interceptor.setCallbackHandler(handler);
         return interceptor;
     }
 
     @Bean
     public KeyStoreFactoryBean keyStoreFactoryBean(ServerConfig serverConfig) {
-        Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("certificate");
+        Map<String, String> certificate = serverConfig.getCertificate();
         DefaultResourceLoader loader = new DefaultResourceLoader();
         KeyStoreFactoryBean keyStoreFactoryBean = new KeyStoreFactoryBean();
         keyStoreFactoryBean.setType("JKS");
-        keyStoreFactoryBean.setLocation(loader.getResource(securityConfig.get("keyStore")));
-        keyStoreFactoryBean.setPassword(securityConfig.get("password"));
+        keyStoreFactoryBean.setLocation(loader.getResource(certificate.get("keyStore")));
+        keyStoreFactoryBean.setPassword(certificate.get("password"));
         return keyStoreFactoryBean;
     }
 

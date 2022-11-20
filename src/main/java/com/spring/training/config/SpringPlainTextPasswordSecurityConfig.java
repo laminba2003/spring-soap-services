@@ -29,9 +29,9 @@ public class SpringPlainTextPasswordSecurityConfig extends AbstractSecurityConfi
     @Override
     public EndpointInterceptor securityInterceptor() {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
-        Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("password");
+        Map<String, String> password = serverConfig.getPassword();
         DefaultResourceLoader loader = new DefaultResourceLoader();
-        interceptor.setPolicyConfiguration(loader.getResource(securityConfig.get("policy")));
+        interceptor.setPolicyConfiguration(loader.getResource(password.get("policy")));
         SpringPlainTextPasswordValidationCallbackHandler handler = new SpringPlainTextPasswordValidationCallbackHandler();
         handler.setAuthenticationManager(authenticationManager());
         interceptor.setCallbackHandler(handler);
