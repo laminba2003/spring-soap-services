@@ -1,7 +1,6 @@
 package com.spring.training.config;
 
 import com.spring.training.service.UserAuthenticationService;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
@@ -17,14 +16,18 @@ import java.util.Map;
 
 @Configuration
 @Profile("springPassword")
-@AllArgsConstructor
 public class SpringPlainTextPasswordSecurityConfig extends AbstractSecurityConfig {
 
     final UserAuthenticationService authenticationService;
 
+    public SpringPlainTextPasswordSecurityConfig(ServerConfig serverConfig, UserAuthenticationService authenticationService) {
+        super(serverConfig);
+        this.authenticationService = authenticationService;
+    }
+
     @Bean
     @Override
-    public EndpointInterceptor securityInterceptor(ServerConfig serverConfig) {
+    public EndpointInterceptor securityInterceptor() {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
         Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("password");
         DefaultResourceLoader loader = new DefaultResourceLoader();

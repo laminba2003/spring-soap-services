@@ -2,6 +2,7 @@ package com.spring.training.config;
 
 import com.spring.training.endpoint.SoapActions;
 import com.spring.training.exception.SoapExceptionResolver;
+import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -43,24 +44,24 @@ public class ApplicationConfig {
     }
 
     @Bean(name = "countries")
-    public DefaultWsdl11Definition countriesWsdl11Definition(XsdSchema countriesSchema) {
+    public DefaultWsdl11Definition countriesWsdl11Definition() {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("CountriesPort");
         definition.setLocationUri("/ws");
         definition.setTargetNamespace(NAMESPACE_URI);
-        definition.setSchema(countriesSchema);
-        definition.setSoapActions(SoapActions.getCountrySoapActions());
+        definition.setSchema(countriesSchema());
+        definition.setSoapActions(SoapActions.getCountryEndpointActions());
         return definition;
     }
 
     @Bean(name = "persons")
-    public DefaultWsdl11Definition personsWsdl11Definition(XsdSchema personsSchema) {
+    public DefaultWsdl11Definition personsWsdl11Definition() {
         DefaultWsdl11Definition definition = new DefaultWsdl11Definition();
         definition.setPortTypeName("PersonsPort");
         definition.setLocationUri("/ws");
         definition.setTargetNamespace(NAMESPACE_URI);
-        definition.setSchema(personsSchema);
-        definition.setSoapActions(SoapActions.getPersonSoapActions());
+        definition.setSchema(personsSchema());
+        definition.setSoapActions(SoapActions.getPersonEndpointActions());
         return definition;
     }
 
@@ -74,4 +75,9 @@ public class ApplicationConfig {
         return new SimpleXsdSchema(new ClassPathResource("persons.xsd"));
     }
 
+    @Bean
+    @ConfigurationProperties(prefix = "ws")
+    public ServerConfig serverConfig() {
+        return new ServerConfig();
+    }
 }

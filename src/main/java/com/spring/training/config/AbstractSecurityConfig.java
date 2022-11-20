@@ -1,6 +1,6 @@
 package com.spring.training.config;
 
-import org.springframework.boot.context.properties.ConfigurationProperties;
+import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.ws.config.annotation.WsConfigurerAdapter;
 import org.springframework.ws.server.EndpointInterceptor;
@@ -8,9 +8,12 @@ import org.springframework.ws.server.endpoint.interceptor.PayloadLoggingIntercep
 
 import java.util.List;
 
+@AllArgsConstructor
 public abstract class AbstractSecurityConfig extends WsConfigurerAdapter {
 
-    public abstract EndpointInterceptor securityInterceptor(ServerConfig serverConfig) ;
+    final ServerConfig serverConfig;
+
+    public abstract EndpointInterceptor securityInterceptor();
 
     @Bean
     public PayloadLoggingInterceptor payloadLoggingInterceptor() {
@@ -20,13 +23,7 @@ public abstract class AbstractSecurityConfig extends WsConfigurerAdapter {
     @Override
     public void addInterceptors(List<EndpointInterceptor> interceptors) {
         interceptors.add(payloadLoggingInterceptor());
-        interceptors.add(securityInterceptor(serverConfig()));
-    }
-
-    @Bean
-    @ConfigurationProperties(prefix = "ws")
-    public ServerConfig serverConfig() {
-        return new ServerConfig();
+        interceptors.add(securityInterceptor());
     }
 
 }

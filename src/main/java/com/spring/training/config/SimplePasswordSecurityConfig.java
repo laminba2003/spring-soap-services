@@ -14,9 +14,13 @@ import java.util.Map;
 @Profile("password")
 public class SimplePasswordSecurityConfig extends AbstractSecurityConfig {
 
+    public SimplePasswordSecurityConfig(ServerConfig serverConfig) {
+        super(serverConfig);
+    }
+
     @Bean
     @Override
-    public EndpointInterceptor securityInterceptor(ServerConfig serverConfig) {
+    public EndpointInterceptor securityInterceptor() {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
         Map<String, Object> securityConfig = (Map<String, Object>) serverConfig.getSecurity().get("password");
         DefaultResourceLoader loader = new DefaultResourceLoader();

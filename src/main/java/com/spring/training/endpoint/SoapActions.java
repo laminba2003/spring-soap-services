@@ -16,7 +16,7 @@ public interface SoapActions {
     String UPDATE_COUNTRY = "http://spring.com/training/updateCountryRequest";
     String DELETE_COUNTRY = "http://spring.com/training/deleteCountryRequest";
 
-    static Properties getPersonSoapActions() {
+    static Properties getPersonEndpointActions() {
         Properties actions = new Properties();
         actions.put("getPersons", GET_PERSONS);
         actions.put("getPerson", GET_PERSON);
@@ -26,7 +26,7 @@ public interface SoapActions {
         return actions;
     }
 
-    static Properties getCountrySoapActions() {
+    static Properties getCountryEndpointActions() {
         Properties actions = new Properties();
         actions.put("getCountries", GET_COUNTRIES);
         actions.put("getCountry", GET_COUNTRY);

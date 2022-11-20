@@ -15,9 +15,13 @@ import java.util.Map;
 @Profile("certificate")
 public class CertificateSecurityConfig extends AbstractSecurityConfig {
 
+    public CertificateSecurityConfig(ServerConfig serverConfig) {
+        super(serverConfig);
+    }
+
     @Bean
     @Override
-    public EndpointInterceptor securityInterceptor(ServerConfig serverConfig) {
+    public EndpointInterceptor securityInterceptor() {
         XwsSecurityInterceptor interceptor = new XwsSecurityInterceptor();
         Map<String, String> securityConfig = (Map<String, String>) serverConfig.getSecurity().get("certificate");
         DefaultResourceLoader loader = new DefaultResourceLoader();
