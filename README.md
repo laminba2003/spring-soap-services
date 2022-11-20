@@ -79,7 +79,7 @@ The digital signature of a message is a piece of information based on both the d
 
 Encryption is the process of transforming data into a form that is impossible to read without the appropriate key. It is mainly used to keep information hidden from anyone for 
 
-Two implementations of WS-Security, WSS4J and XWSS, are supported. 
+Two implementations of WS-Security, WSS4J and XWSS, are supported and the following authentication methods are used: 
 
 - Plain password
 - Signature
