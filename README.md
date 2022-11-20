@@ -42,4 +42,96 @@ Spring-WS only supports the contract-first development style.
 </build>
 ```
 
+## Security
 
+Spring WS-Security allows you to sign SOAP messages, encrypt and decrypt them, or authenticate against them. The WS-Security implementation of Spring Web Services provides integration with Spring Security.
+
+```xml
+<dependency>
+    <groupId>org.springframework.ws</groupId>
+    <artifactId>spring-ws-security</artifactId>
+</dependency>
+<dependency>
+    <groupId>com.sun.xml.wss</groupId>
+    <artifactId>xws-security</artifactId>
+    <version>3.0</version>
+    <exclusions>
+        <exclusion>
+            <groupId>javax.activation</groupId>
+            <artifactId>activation</artifactId>
+        </exclusion>
+        <exclusion>
+            <groupId>javax.xml.crypto</groupId>
+            <artifactId>xmldsig</artifactId>
+        </exclusion>
+    </exclusions>
+</dependency>
+```
+**Authentication**: 
+
+This is the process of determining whether a principal is who they claim to be. In this context, a "principal" generally means a user, device or some other system which can perform an action in your application.
+
+**Digital signatures**:  
+
+The digital signature of a message is a piece of information based on both the document and the signer's private key. It is created through the use of a hash function and a private signing function (encrypting with the signer's private key).
+
+**Encryption and Decryption**:  
+
+Encryption is the process of transforming data into a form that is impossible to read without the appropriate key. It is mainly used to keep information hidden from anyone for 
+
+Two implementations of WS-Security, WSS4J and XWSS, are supported. 
+
+- Plain password
+- Signature
+- Encryption
+
+## URLs for the web services
+
+By default, the web services will be deployed to the following URL:
+
+```
+http://localhost:8080/ws
+```
+
+With this, by running the project the following endpoints are mapped each to their own URL:
+
+|URL|
+| ----------- |
+|[http://localhost:8080/ws/persons.wsdl](http://localhost:8080/ws/persons.wsdl)|
+|[http://localhost:8080/ws/countries.wsdl](http://localhost:8080/ws/countries.wsdl)|
+
+## Security activation
+
+You need to run the project with the appropriate profile and you can read below the security configuration declared in the *application.yml* file.
+
+```
+ws:
+  security:
+    password:
+      policy: classpath:passwordSecurityPolicy.xml
+      users:
+        admin: pwd123
+    certificate:
+      policy: classpath:certificateSecurityPolicy.xml
+      keyStore: classpath:keyStore.jks
+      password: changeit
+      alias: thinktech
+```
+ 
+- Plain password
+
+```
+mvn spring-boot:run -Dspring-boot.run.profiles=password
+```
+
+- Signature
+
+```
+mvn spring-boot:run -Dspring-boot.run.profiles=certificate
+```
+
+- Encryption 
+
+```
+mvn spring-boot:run -Dspring-boot.run.profiles=encryption
+```
