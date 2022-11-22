@@ -20,6 +20,7 @@ ws:
     certificate:
       policy: classpath:certificateSecurityPolicy.xml
       keyStore: classpath:keyStore.jks
+      keyStoreType: JKS
       password: changeit
       alias: thinktech
 logging:

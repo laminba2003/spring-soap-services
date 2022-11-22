@@ -41,7 +41,7 @@ public class CertificateSecurityConfig extends AbstractSecurityConfig {
         Map<String, String> certificate = serverConfig.getCertificate();
         DefaultResourceLoader loader = new DefaultResourceLoader();
         KeyStoreFactoryBean keyStoreFactoryBean = new KeyStoreFactoryBean();
-        keyStoreFactoryBean.setType("JKS");
+        keyStoreFactoryBean.setType(certificate.get("keyStoreType"));
         keyStoreFactoryBean.setLocation(loader.getResource(certificate.get("keyStore")));
         keyStoreFactoryBean.setPassword(certificate.get("password"));
         return keyStoreFactoryBean;
