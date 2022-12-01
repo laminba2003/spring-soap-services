@@ -119,19 +119,65 @@ ws:
       alias: thinktech
 ```
  
-- Plain password
+### Plain password
 
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=password
 ```
 
-- Signature
+The users will be authenticated against an in memory list defined in the **application.yml** file.
+
+```xml
+<soapenv:Envelope xmlns:mod="http://spring.com/training/model" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header>
+      <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken wsu:Id="UsernameToken-4BEAAB6174C6232334166852784670523">
+            <wsse:Username>admin</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">pwd123</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <mod:getCountryRequest>
+         <mod:name>Senegal</mod:name>
+      </mod:getCountryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+### Plain password with Spring Authentication
+
+```
+mvn spring-boot:run -Dspring-boot.run.profiles=springPassword
+```
+
+The users will be authenticated against an H2 database which is populated at startup using the **data.sql** file. 
+The passwords are encrypted with Bcrypt.
+
+```xml
+<soapenv:Envelope xmlns:mod="http://spring.com/training/model" xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/">
+   <soapenv:Header>
+      <wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+         <wsse:UsernameToken wsu:Id="UsernameToken-4BEAAB6174C6232334166852784670523">
+            <wsse:Username>john</wsse:Username>
+            <wsse:Password Type="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-username-token-profile-1.0#PasswordText">passer</wsse:Password>
+         </wsse:UsernameToken>
+      </wsse:Security>
+   </soapenv:Header>
+   <soapenv:Body>
+      <mod:getCountryRequest>
+         <mod:name>Senegal</mod:name>
+      </mod:getCountryRequest>
+   </soapenv:Body>
+</soapenv:Envelope>
+```
+
+### Signature
 
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=certificate
 ```
 
-- Encryption 
+### Encryption 
 
 ```
 mvn spring-boot:run -Dspring-boot.run.profiles=encryption
