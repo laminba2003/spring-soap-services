@@ -9,12 +9,10 @@ import javax.persistence.*;
 @Data
 @Table(name = "countries")
 public class CountryEntity {
-
     @Id
     String name;
     String capital;
     int population;
     @Enumerated(EnumType.STRING)
     Currency currency;
-
 }

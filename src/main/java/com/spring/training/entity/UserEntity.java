@@ -7,7 +7,6 @@ import javax.persistence.*;
 @Data
 @Table(name = "users")
 public class UserEntity {
-
     @Id
     Long id;
     String firstName;
@@ -15,5 +14,4 @@ public class UserEntity {
     @Column(nullable = false, unique = true)
     String userName;
     String password;
-
 }

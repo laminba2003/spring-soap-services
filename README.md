@@ -174,7 +174,7 @@ The passwords are encrypted with Bcrypt.
 ### Signature
 
 ```
-mvn spring-boot:run -Dspring-boot.run.profiles=certificate
+mvn spring-boot:run -Dspring-boot.run.profiles=signature
 ```
 
 ### Encryption 
@@ -208,6 +208,6 @@ openssl pkcs12 -export -in server.crt -inkey server.key \
 ```
 keytool -importkeystore \
         -deststorepass [changeit] -destkeypass [changeit] -destkeystore server.jks \
-        -srckeystore server.p12 -srcstoretype PKCS12 -srcstorepass some-password \
+        -srckeystore server.p12 -srcstoretype PKCS12 -srcstorepass [some-password] \
         -alias [some-alias]
 ```

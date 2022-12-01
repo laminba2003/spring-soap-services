@@ -9,11 +9,8 @@ import javax.persistence.Table;
 @Data
 @Table(name = "persons")
 public class PersonEntity {
-
     @Id
     Long id;
     String firstName;
     String lastName;
-
-
 }

@@ -12,10 +12,10 @@ import org.springframework.ws.soap.security.xwss.callback.KeyStoreCallbackHandle
 import java.util.Map;
 
 @Configuration
-@Profile("certificate")
-public class CertificateSecurityConfig extends AbstractSecurityConfig {
+@Profile("signature")
+public class SignatureSecurityConfig extends AbstractSecurityConfig {
 
-    public CertificateSecurityConfig(ServerConfig serverConfig) {
+    public SignatureSecurityConfig(ServerConfig serverConfig) {
         super(serverConfig);
     }
 

@@ -1,6 +1,5 @@
 package com.spring.training.endpoint;
 
-import com.spring.training.config.ApplicationConfig;
 import com.spring.training.model.*;
 import com.spring.training.service.CountryService;
 import lombok.AllArgsConstructor;
@@ -28,7 +27,7 @@ public class CountryEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "getCountryRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getCountryRequest")
     @ResponsePayload
     @SoapAction(GET_COUNTRY)
     public GetCountryResponse getCountry(@RequestPayload GetCountryRequest request) {
@@ -37,7 +36,7 @@ public class CountryEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "createCountryRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "createCountryRequest")
     @ResponsePayload
     @SoapAction(CREATE_COUNTRY)
     public CreateCountryResponse createCountry(@RequestPayload CreateCountryRequest request) {
@@ -46,7 +45,7 @@ public class CountryEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "updateCountryRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updateCountryRequest")
     @ResponsePayload
     @SoapAction(UPDATE_COUNTRY)
     public UpdateCountryResponse updateCountry(@RequestPayload UpdateCountryRequest request) {
@@ -55,7 +54,7 @@ public class CountryEndpoint {
         return response;
     }
 
-    @PayloadRoot(namespace = ApplicationConfig.NAMESPACE_URI, localPart = "deleteCountryRequest")
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteCountryRequest")
     @SoapAction(DELETE_COUNTRY)
     public void deleteCountry(@RequestPayload DeleteCountryRequest request) {
         service.deleteCountry(request.getName());
